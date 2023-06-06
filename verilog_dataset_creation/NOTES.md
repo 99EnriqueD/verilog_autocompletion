@@ -1,0 +1,65 @@
+TODO: More analysis of files collected needed! Find what the outliers/main problems are!
+### Types of files we dont want:
+- Long lists of definitions (e.g. data/full_repos/permissive/551163060/verilog/gl/user_proj_example.v , )
+    - Maybe limit number of lines and/or characters for a single file?
+    - Limit number of children of the same type
+        - From python 150k: "keeping only programs that parse and have at most 30'000 nodes in the AST"
+        - From codex: We filtered out files which were likely auto-generated, had average line length greater than 100, had maximum line length greater than 1000, or contained a small percentage of alphanumeric characters.
+    - Examples:
+        - data/full_repos/permissive/551163060/verilog/gl/user_proj_example.v
+        - data/full_repos/permissive/19905110/fusesoc/orpsoc-cores/trunk/systems/de0_nano/rtl/verilog/wb_intercon.vh
+        - data/full_repos/permissive/57886838/testcases/cad16_np3_case2/case11/cir1.v
+        - data/full_repos/permissive/78109264/DeCam-Benchmarks-ISCAS-NAND-NOR-XOR/c2670/c2670-abcmap-fmt-8-randCam126-STD.v
+        - data/full_repos/permissive/319767723/verilog/gl/mgmt_protect.v
+- Very short files
+    - Only comments
+    - Only imports (?)
+- Proprietary code (xilinx code has been found that is marked as confidential/proprietary, the repo is licensed as distributable and modifiable tho... 
+    - Maybe search keywords like:
+        - confidential
+        - proprietary
+        - all right reserved
+        - all rights reserved
+        - company names: (xilinx, altera, intel, cadence design)
+        - Non-Disclosure Agreement (NDA)
+        - intellectual property laws
+    - Some notices include these keywords but are freely distributable:
+        - example: data/full_repos/permissive/379676675/soc/dummy.v
+        - keep whitelist keywords (some better than others):
+            - apache
+            - gnu
+            - MIT License
+            - free software
+            - freely distributable (?)
+            - Open Source Project
+            - Open Hardware License
+            - Solderpad Hardware License
+            - netfpga
+            - Free Software Foundation
+            - JT12
+            - JT_GNG
+            - University (CHECK THESE INSTANCES MANUALLY, USUALLY DISTRIBUTABLE THO)
+- Automatically generated files. 
+    - Obvious examples: 
+        - data/full_repos/permissive/314009583/hardware/tapeout_45/genesis_verif/test_pe_comp_unq1.sv
+        - data/full_repos/permissive/495709021/NRPolarDecode/CRCGenerator_block.v
+    - Non-obvious examples:
+        - data/full_repos/permissive/355846505/tests/isa/rv32ui-p-lb.verilog
+    - Probably most of the very long files are automatically generated...
+    - blacklist keywords:
+        - generated using
+        - auto-generated
+        - generated on
+        - Cadence Genus
+        - WIZARD-GENERATED
+        - Yosys
+        - Vivado(TM) HLS - High-Level Synthesis
+        - Partial product generation
+### Things to filter:
+- license info (don't remove, some licenses need to stay where they are to be distributable! only remove maybe during pre processing at training time)
+- long lists of print statements and/or definitions of small things like wires, etc (see files we don't want above)
+- foreign characters (all non-standard (e.g. utf-8) enocoded data)
+### Strings: 
+- single-line: //
+- multi-line: /* */
+- For analysing comments, make sure to remove newlines, tabs, comment things
