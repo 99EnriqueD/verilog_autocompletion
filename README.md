@@ -1,4 +1,4 @@
-# Cerilog Autocompletion
+# Verilog Autocompletion
 Code for "[A Deep Learning Framework for Verilog Autocompletion Towards Design and Verification Automation](https://arxiv.org/abs/2304.13840)" which is to be presented at DAC 2023.
 
 The code is split into two parts with corresponding directories in this repository:
