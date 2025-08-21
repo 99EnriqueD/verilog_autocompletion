@@ -1,5 +1,5 @@
 # Verilog Autocompletion
-Code for "[A Deep Learning Framework for Verilog Autocompletion Towards Design and Verification Automation](https://arxiv.org/abs/2304.13840)" which is to be presented at DAC 2023.
+Code for "[A Deep Learning Framework for Verilog Autocompletion Towards Design and Verification Automation](https://arxiv.org/abs/2304.13840)".
 
 The code is split into two parts with corresponding directories in this repository:
 - **verilog_datasets_creation**: code used for creating and curating our Verilog code datasets.
